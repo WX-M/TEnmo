@@ -1,9 +1,12 @@
 package com.techelevator.view;
 
 
+import com.techelevator.tenmo.model.User;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -72,5 +75,69 @@ public class ConsoleService {
 			}
 		} while(result == null);
 		return result;
+	}
+
+	public Double getUserInputDouble(String prompt) {
+		Double result = null;
+		do {
+			out.print(prompt+": ");
+			out.flush();
+			String userInput = in.nextLine();
+			try {
+				result = Double.parseDouble(userInput);
+
+				BigDecimal bd = BigDecimal.valueOf(result);
+				if (bd.scale() < 3 && bd.compareTo(BigDecimal.ZERO) > 0) {
+					continue;
+				} else {
+					out.println("\n*** " + userInput + " has too many decimal places or is negative ***\n");
+					result = null;
+				}
+
+
+			} catch(NumberFormatException e) {
+				out.println("\n*** " + userInput + " is not valid ***\n");
+			}
+		} while(result == null);
+		return result;
+	}
+
+	public void printUsers(User[] users, String userName) {
+		// list all user except current user
+		for(User user: users) {
+			if (user.getUsername().equals(userName)) continue;
+			out.println(user.getId() + "          " + user.getUsername());
+		}
+		out.println("-------------------------------");
+		out.flush();
+	}
+
+	public void printTransfers(int transferId, String fromOrTo, BigDecimal amount, String status) {
+		out.format("%-5d %-15s $%10s %-10s", transferId, fromOrTo, amount, status);
+		out.println();
+	}
+
+	public void printTransferDetails(int id, String from, String to, String type, String status, BigDecimal amount) {
+		out.println("-------------------------------");
+		out.println("Transfer Details");
+		out.println("-------------------------------");
+		out.println("Id: " + id);
+		if(!type.equals("Request")) {
+			out.println("From: " + from);
+			out.println("To: " + to);
+		}
+		else {
+			out.println("Request From: " + to);
+			out.println("To: " + from);
+		}
+		out.println("Type: " + type);
+		out.println("Status: " + status);
+		out.println("Amount: $" + amount);
+	}
+
+	public void printApproveOrRejectOptions() {
+		out.println("1: Approve");
+		out.println("2: Reject");
+		out.println("0: Don't approve or reject\n");
 	}
 }
