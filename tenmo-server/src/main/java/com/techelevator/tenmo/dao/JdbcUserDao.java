@@ -30,7 +30,7 @@ public class JdbcUserDao implements UserDao {
             return id;
         } else {
             return -1;
-    }
+        }
     }
 
     @Override
@@ -51,7 +51,7 @@ public class JdbcUserDao implements UserDao {
         SqlRowSet rowSet = jdbcTemplate.queryForRowSet(sql, username);
         if (rowSet.next()){
             return mapRowToUser(rowSet);
-            }
+        }
         throw new UsernameNotFoundException("User " + username + " was not found.");
     }
 
@@ -66,7 +66,7 @@ public class JdbcUserDao implements UserDao {
             newUserId = jdbcTemplate.queryForObject(sql, Integer.class, username, password_hash);
         } catch (DataAccessException e) {
             return false;
-                }
+        }
 
         // create account
         sql = "INSERT INTO accounts (user_id, balance) values(?, ?)";
@@ -77,6 +77,19 @@ public class JdbcUserDao implements UserDao {
         }
 
         return true;
+    }
+
+    @Override
+    public User getUserByUserId(int id) {
+        String sql = "SELECT user_id, username FROM users WHERE user_id = ?";
+        SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
+        User user = null;
+        if(result.next()) {
+            user = new User();
+            user.setId(result.getLong("user_id"));
+            user.setUsername(result.getString("username"));
+        }
+        return user;
     }
 
     private User mapRowToUser(SqlRowSet rs) {
