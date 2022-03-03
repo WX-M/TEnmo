@@ -2,6 +2,8 @@ package com.techelevator.tenmo.services;
 
 import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.Transfer;
+import com.techelevator.tenmo.model.TransferStatus;
+import com.techelevator.tenmo.model.TransferType;
 import com.techelevator.view.ConsoleService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -112,5 +114,40 @@ public class TransferService {
         }
         return message;
     }
+
+
+
+    public TransferType getTransferTypeFromId(AuthenticatedUser authenticatedUser, int transferTypeId) {
+        TransferType transferType = null;
+
+        try {
+            String url = baseUrl + "transfertype/" + transferTypeId;
+            transferType = restTemplate.exchange(url, HttpMethod.GET, makeEntity(authenticatedUser), TransferType.class).getBody();
+        } catch(RestClientResponseException e) {
+            System.out.println("Could not complete request. Code: " + e.getRawStatusCode());
+        } catch(ResourceAccessException e) {
+            System.out.println("Could not complete request due to server network issue. Please try again.");
+        }
+
+
+        return transferType;
+    }
+
+
+    public TransferStatus getTransferStatusById(AuthenticatedUser authenticatedUser, int transferStatusId) {
+        TransferStatus transferStatus = null;
+        try {
+            String url = baseUrl + "/transferstatus/" + transferStatusId;
+            transferStatus = restTemplate.exchange(url, HttpMethod.GET, makeEntity(authenticatedUser), TransferStatus.class).getBody();
+        } catch(RestClientResponseException e) {
+            System.out.println("Could not complete request. Code: " + e.getRawStatusCode());
+        } catch(ResourceAccessException e) {
+            System.out.println("Could not complete request due to server network issue. Please try again.");
+        }
+
+        return transferStatus;
+    }
+
+
 
 }

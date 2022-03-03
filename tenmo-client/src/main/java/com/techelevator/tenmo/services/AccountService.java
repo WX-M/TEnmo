@@ -56,6 +56,34 @@ public class AccountService {
         return account;
     }
 
+
+    public Account getAccountById(AuthenticatedUser authenticatedUser, int accountId) {
+        Account account = null;
+        try {
+            account = restTemplate.exchange(baseUrl + "account/" + accountId,
+                    HttpMethod.GET,
+                    createHttpEntity(authenticatedUser),
+                    Account.class).getBody();
+        } catch(RestClientResponseException e) {
+            System.out.println("Could not complete request. Code: " + e.getRawStatusCode());
+        } catch(ResourceAccessException e) {
+            System.out.println("Could not complete request due to server network issue. Please try again.");
+        }
+        return account;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     private HttpEntity createHttpEntity(AuthenticatedUser authenticatedUser) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(authenticatedUser.getToken());

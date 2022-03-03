@@ -122,6 +122,7 @@ public class ConsoleService {
 		out.println("Transfer Details");
 		out.println("-------------------------------");
 		out.println("Id: " + id);
+		out.println("Type: " + type);
 		if(!type.equals("Request")) {
 			out.println("From: " + from);
 			out.println("To: " + to);

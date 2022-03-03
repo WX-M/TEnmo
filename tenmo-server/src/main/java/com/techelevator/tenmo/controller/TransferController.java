@@ -19,6 +19,12 @@ public class TransferController {
     private AccountDao accountDao;
     @Autowired
     private  TransferDao transferDao;
+    @Autowired
+    private TransferTypeDao transferTypeDao;
+    @Autowired
+    private TransferStatusDAO transferStatusDAO;
+
+
 
     @RequestMapping(path="/transfers/{id}", method = RequestMethod.GET)
     public Transfer getTransferByTransferId(@PathVariable int id) {
@@ -65,4 +71,17 @@ public class TransferController {
         transferDao.updateTransfer(transfer);
 
     }
+
+
+    @RequestMapping(path="/transfertype/{id}", method = RequestMethod.GET)
+    public TransferType getTransferDescFromId(@PathVariable int id)  {
+        return transferTypeDao.getTransferTypeFromId(id);
+    }
+    @RequestMapping(path="/transferstatus/{id}", method = RequestMethod.GET)
+    public TransferStatus getTransferStatusFromId(@PathVariable int id) {
+        return transferStatusDAO.getTransferStatusById(id);
+    }
+
+
+
 }

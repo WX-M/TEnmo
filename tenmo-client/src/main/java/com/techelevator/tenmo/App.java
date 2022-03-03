@@ -263,18 +263,38 @@ public class App {
 		int id = transferChoice.getTransferId();
 		BigDecimal amount = transferChoice.getAmount();
 
-		String fromUserName = transferChoice.getUserFrom();
+//		String fromUserName = transferChoice.getUserFrom();
+
+
+
+
+		int fromAccount = transferChoice.getAccountFrom();
+		int toAccount = transferChoice.getAccountTo();
+		int transactionTypeId = transferChoice.getTransferTypeId();
+		int transactionStatusId = transferChoice.getTransferStatusId();
+		int fromUserId = accountService.getAccountById(currentUser, fromAccount).getUserId();
+		String fromUserName = userService.getUserByUserId(currentUser, fromUserId).getUsername();
+		int toUserId = accountService.getAccountById(currentUser, toAccount).getUserId();
+		String toUserName = userService.getUserByUserId(currentUser, toUserId).getUsername();
+		String transactionType = transferService.getTransferTypeFromId(currentUser, transactionTypeId).getTransferTypeDescription();
+		String transactionStatus = transferService.getTransferStatusById(currentUser, transactionStatusId).getTransferStatusDesc();
+
+
+
 		// add Me word if it's current user
 		if(isMe(currentUser,fromUserName))
 			fromUserName=fromUserName+" (Me)";
 
 		// add Me world if it's current user
-		String toUserName = transferChoice.getUserTo();
+
 		if(isMe(currentUser,toUserName))
 			toUserName=toUserName+" (Me)";
 
-		console.printTransferDetails(id, fromUserName, toUserName,
-				transferChoice.getTransferTypeDesc(), transferChoice.getTransferStatusDesc(), amount);
+
+		console.printTransferDetails(id, fromUserName, toUserName, transactionType, transactionStatus, amount);
+
+//		console.printTransferDetails(id, fromUserName, toUserName,
+//				transferChoice.getTransferTypeDesc(), transferChoice.getTransferStatusDesc(), amount);
 		console.getUserInput("\nPress Enter to continue");
 	}
 
