@@ -95,10 +95,10 @@ public class App {
 			return;
 		}
 
-		System.out.println("--------------------------------------------");
+		System.out.println("―――――――――――――――――――――――――――");
 		System.out.println("Transfers");
-		System.out.println("ID     From/To          Amount     Status");
-		System.out.println("--------------------------------------------");
+		System.out.println("ID     From/To               Amount");
+		System.out.println("―――――――――――――――――――――――――――");
 
 		for(Transfer transfer: transfers) {
 			printTransfer(currentUser, transfer);
@@ -118,10 +118,10 @@ public class App {
 			return;
 		}
 
-		System.out.println("--------------------------------------------");
+		System.out.println("―――――――――――――――――――――――――――");
 		System.out.println("Pending Transfers");
 		System.out.println("ID     To               Amount     Status");
-		System.out.println("--------------------------------------------");
+		System.out.println("―――――――――――――――――――――――――――");
 
 		for(Transfer transfer: transfers) {
 			printTransfer(currentUser, transfer);
@@ -305,10 +305,10 @@ public class App {
 
 	private void printUserOptions(AuthenticatedUser currentUser, User[] users) {
 
-		System.out.println("-------------------------------");
+		System.out.println("―――――――――――――――――――");
 		System.out.println("Users");
 		System.out.println("ID          Name");
-		System.out.println("-------------------------------");
+		System.out.println("―――――――――――――――――――");
 
 		// list of user, not display current user
 		console.printUsers(users, currentUser.getUser().getUsername());

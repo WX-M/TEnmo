@@ -108,21 +108,20 @@ public class ConsoleService {
 			if (user.getUsername().equals(userName)) continue;
 			out.println(user.getId() + "          " + user.getUsername());
 		}
-		out.println("-------------------------------");
+		out.println("―――――――――――――――――――");
 		out.flush();
 	}
 
 	public void printTransfers(int transferId, String fromOrTo, BigDecimal amount, String status) {
-		out.format("%-5d %-15s $%10s %-10s", transferId, fromOrTo, amount, status);
+		out.format("%-5d %-15s $%10s ", transferId, fromOrTo, amount);
 		out.println();
 	}
 
 	public void printTransferDetails(int id, String from, String to, String type, String status, BigDecimal amount) {
-		out.println("-------------------------------");
+		out.println("―――――――――――――――――――");
 		out.println("Transfer Details");
-		out.println("-------------------------------");
-		out.println("Id: " + id);
-		out.println("Type: " + type);
+		out.println("―――――――――――――――――――");
+		out.println("Transfer Id: " + id);
 		if(!type.equals("Request")) {
 			out.println("From: " + from);
 			out.println("To: " + to);
