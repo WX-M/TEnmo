@@ -113,7 +113,7 @@ public class ConsoleService {
 	}
 
 	public void printTransfers(int transferId, String fromOrTo, BigDecimal amount, String status) {
-		out.format("%-5d %-15s $%10s %-10s", transferId, fromOrTo, amount, status);
+		out.format("%-5d %-15s $%10s", transferId, fromOrTo, amount);
 		out.println();
 	}
 
