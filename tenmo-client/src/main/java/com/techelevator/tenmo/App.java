@@ -120,7 +120,7 @@ public class App {
 
 		System.out.println("―――――――――――――――――――――――――――");
 		System.out.println("Pending Transfers");
-		System.out.println("ID     To               Amount     Status");
+		System.out.println("ID     To               Amount     ");
 		System.out.println("―――――――――――――――――――――――――――");
 
 		for(Transfer transfer: transfers) {
